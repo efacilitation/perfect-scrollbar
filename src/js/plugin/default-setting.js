@@ -12,6 +12,7 @@ module.exports = {
   suppressScrollX: false,
   suppressScrollY: false,
   swipePropagation: true,
+  swipeSpeed: 1,
   useBothWheelAxes: false,
   useKeyboard: true,
   useSelectionScroll: false,
