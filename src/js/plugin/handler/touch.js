@@ -34,8 +34,8 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
   }
 
   function applyTouchMove(differenceX, differenceY) {
-    updateScroll(element, 'top', (element.scrollTop - differenceY) * i.settings.swipeSpeed);
-    updateScroll(element, 'left', (element.scrollLeft - differenceX) * i.settings.swipeSpeed);
+    updateScroll(element, 'top', element.scrollTop - differenceY * i.settings.swipeSpeed);
+    updateScroll(element, 'left', element.scrollLeft - differenceX * i.settings.swipeSpeed);
 
     updateGeometry(element);
   }
