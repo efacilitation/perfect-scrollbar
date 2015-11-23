@@ -81,7 +81,6 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
   }
   function touchStart(e) {
     if (shouldHandle(e)) {
-      console.log('touchStart', element);
       inLocalTouch = true;
 
       var touch = getTouch(e);
@@ -133,7 +132,6 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
   function touchEnd(e) {
     if (inLocalTouch) {
       inLocalTouch = false;
-      console.log('touchEnd', element);
       clearInterval(easingLoop);
       easingLoop = setInterval(function () {
         if (!instances.get(element)) {
