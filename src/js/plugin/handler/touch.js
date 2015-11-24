@@ -72,9 +72,8 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
     }
 
     var rect = element.getBoundingClientRect();
-    if ((pageX > rect.left && pageX < (rect.left + rect.width)) &&
-      (pageY > rect.top && pageY < (rect.top + rect.height))) {
-        return true;
+    if ((pageX > rect.left && pageX < (rect.left + rect.width)) && (pageY > rect.top && pageY < (rect.top + rect.height))) {
+      return true;
     }
 
     return false;
@@ -95,6 +94,28 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
       }
 
       e.stopPropagation();
+    }
+  }
+  function touchEnd() {
+    if (inLocalTouch) {
+      inLocalTouch = false;
+      clearInterval(easingLoop);
+      easingLoop = setInterval(function () {
+        if (!instances.get(element)) {
+          clearInterval(easingLoop);
+          return;
+        }
+
+        if (Math.abs(speed.x) < 0.01 && Math.abs(speed.y) < 0.01) {
+          clearInterval(easingLoop);
+          return;
+        }
+
+        applyTouchMove(speed.x * 30, speed.y * 30);
+
+        speed.x *= 0.8;
+        speed.y *= 0.8;
+      }, 10);
     }
   }
   function touchMove(e) {
@@ -127,28 +148,6 @@ function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
       }
     } else {
       touchEnd(e);
-    }
-  }
-  function touchEnd(e) {
-    if (inLocalTouch) {
-      inLocalTouch = false;
-      clearInterval(easingLoop);
-      easingLoop = setInterval(function () {
-        if (!instances.get(element)) {
-          clearInterval(easingLoop);
-          return;
-        }
-
-        if (Math.abs(speed.x) < 0.01 && Math.abs(speed.y) < 0.01) {
-          clearInterval(easingLoop);
-          return;
-        }
-
-        applyTouchMove(speed.x * 30, speed.y * 30);
-
-        speed.x *= 0.8;
-        speed.y *= 0.8;
-      }, 10);
     }
   }
 
